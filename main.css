@@ -1,0 +1,62 @@
+:root {
+    /* --primary: oklch(50% 50% 0) !important; */
+}
+
+li::marker {
+    content: '';
+}
+
+nav {
+    background-color: var(--primary);
+}
+
+nav h1 {
+    color: var(--contrast-inverse);
+    margin: 10px;
+}
+
+li.contrast {
+    color: var(--contrast);
+}
+
+/* Month header */
+.month {
+    text-align: center;
+    background-color: var(--secondary);
+    color: var(--contrast-inverse);
+    border: 0;
+}
+
+.weekdays th {
+    background-color: var(--secondary);
+    color: var(--contrast-inverse);
+}
+
+.container,
+.container-fluid {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--spacing);
+    padding-left: var(--spacing);
+}
+
+table {
+    overflow-x: auto;
+    table-layout: fixed;
+}
+
+.container table,
+th,
+td {
+    text-align: center;
+}
+
+td.current-day {
+    height: 2em;
+    width: 2em;
+    border: 0;
+    padding: 0;
+    border-radius: 20px;
+    background-color: var(--primary);
+}
