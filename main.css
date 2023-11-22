@@ -42,7 +42,6 @@ li.contrast {
 }
 
 table {
-    overflow-x: auto;
     table-layout: fixed;
 }
 
