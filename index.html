@@ -6,12 +6,11 @@
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<title>Movie Calendar</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<link rel="stylesheet" href="pico-1.5.10/css/pico.min.css">
 	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 	<script src='main.js'></script>
 </head>
 
-<body>
+<body class="background-tint">
 	<nav class="container-fluid">
 		<ul>
 			<li>
@@ -28,75 +27,55 @@
 		</ul>
 	</nav>
 	<main class="container">
-		<article>
+		<article id="calendar ">
 			<header class="btn-group">
 				<a href="#" role="button" class="outline">Today</a>
 				<a href="#" role="button" class="outline">Tomorrow</a>
 				<a href="#" role="button" class="outline">In 2 days</a>
 			</header>
-			<table>
-				<thead>
-					<tr>
-						<th colspan="7" class="month">November 2023</th>
-					</tr>
-					<tr class="weekdays">
-						<th scope="col">Mo</th>
-						<th scope="col">Tu</th>
-						<th scope="col">We</th>
-						<th scope="col">Th</th>
-						<th scope="col">Fr</th>
-						<th scope="col">Sa</th>
-						<th scope="col">Su</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>7</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>9</td>
-						<td>10</td>
-						<td>11</td>
-						<td>12</td>
-						<td>13</td>
-						<td>14</td>
-					</tr>
-					<tr>
-						<td>15</td>
-						<td>16</td>
-						<td>17</td>
-						<td>18</td>
-						<td>19</td>
-						<td>20</td>
-						<td>21</td>
-					</tr>
-					<tr>
-						<td class="current-day">22</td>
-						<td>23</td>
-						<td>24</td>
-						<td>25</td>
-						<td>26</td>
-						<td>27</td>
-						<td>28</td>
-					</tr>
-					<tr>
-						<td>29</td>
-						<td>30</td>
-					</tr>
-				</tbody>
-			</table>
-			<footer>
-				Testing
-			</footer>
+			<div class="weekdays">
+				<abbr title="Monday">Mo</abbr>
+				<abbr title="Tuesday">Tu</abbr>
+				<abbr title="Wednesday">We</abbr>
+				<abbr title="Thursday">Th</abbr>
+				<abbr title="Friday">Fr</abbr>
+				<abbr title="Saturday">Sa</abbr>
+				<abbr title="Sunday">Su</abbr>
+			</div>
+			<div class="days">
+				<time>1</time>
+				<time>2</time>
+				<time>3</time>
+				<time>4</time>
+				<time>5</time>
+				<time>6</time>
+				<time>7</time>
+				<time>8</time>
+				<time>9</time>
+				<time>10</time>
+				<time>11</time>
+				<time>12</time>
+				<time>13</time>
+				<time>14</time>
+				<time>15</time>
+				<time>16</time>
+				<time>17</time>
+				<time>18</time>
+				<time>19</time>
+				<time>20</time>
+				<time>21</time>
+				<time>22</time>
+				<time class="actual">23</time>
+				<time>24</time>
+				<time>25</time>
+				<time>26</time>
+				<time>27</time>
+				<time>28</time>
+				<time>29</time>
+				<time>30</time>
 			</div>
 		</article>
+		<div>Testing</div>
 	</main>
 </body>
 
