@@ -4,83 +4,38 @@
 <head>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Movie Calendar</title>
+	<title>Moviedar - Movie Calendar</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-	<script src='main.js'></script>
+	<script src='main.js' defer></script>
 </head>
 
 <body class="background-tint">
 	<nav>
-		<ul>
-			<li>
-				<a href="#"><strong>...</strong></a>
-			</li>
-		</ul>
-		<ul>
-			<li><strong>Movie Calendar</strong></li>
-		</ul>
-		<ul>
-			<li>
-				<a href="#" role="button"><strong>Add Movie</strong></a>
-			</li>
-		</ul>
+		<a href="#"><strong>...</strong>
+		</a><strong>Moviedar - Movie Calendar</strong>
+		<a href="#" role="button"><strong>Add Movie</strong></a>
 	</nav>
-	<main class="container">
+	<main class="framed">
 		<header class="btn-group">
-			<a href="#" role="button" class="outline">Today</a>
-			<a href="#" role="button" class="outline">Tomorrow</a>
-			<a href="#" role="button" class="outline">In 2 days</a>
+			<button class="framed button" id="yesterday">Yesterday</button>
+			<time id="actual-day" class="button framed"></time>
+			<button class="framed button" id="tomorrow">Tomorrow</button>
 		</header>
 		<article id="calendar">
 			<div class="weekdays">
-				<abbr title="Monday">Mo</abbr>
-				<abbr title="Tuesday">Tu</abbr>
-				<abbr title="Wednesday">We</abbr>
-				<abbr title="Thursday">Th</abbr>
-				<abbr title="Friday">Fr</abbr>
-				<abbr title="Saturday">Sa</abbr>
-				<abbr title="Sunday">Su</abbr>
+				<abbr title="Monday" class="framed">Mo</abbr>
+				<abbr title="Tuesday" class="framed">Tu</abbr>
+				<abbr title="Wednesday" class="framed">We</abbr>
+				<abbr title="Thursday" class="framed">Th</abbr>
+				<abbr title="Friday" class="framed">Fr</abbr>
+				<abbr title="Saturday" class="framed">Sa</abbr>
+				<abbr title="Sunday" class="framed">Su</abbr>
 			</div>
 			<div class="days">
-				<time>1</time>
-				<time>2</time>
-				<time>3</time>
-				<time>4</time>
-				<time>5</time>
-				<time>6</time>
-				<time>7</time>
-				<time>8</time>
-				<time>9</time>
-				<time>10</time>
-				<time>11</time>
-				<time>12</time>
-				<time>13</time>
-				<time>14</time>
-				<time>15</time>
-				<time>16</time>
-				<time>17</time>
-				<time>18</time>
-				<time>19</time>
-				<time>20</time>
-				<time>21</time>
-				<time>22</time>
-				<time class="actual">23</time>
-				<time>24</time>
-				<time>25</time>
-				<time>26</time>
-				<time>27</time>
-				<time>28</time>
-				<time>29</time>
-				<time>30</time>
-				<time></time>
-				<time></time>
-				<time></time>
-				<time></time>
-				<time></time>
+
 			</div>
 		</article>
-		<div>Testing</div>
 	</main>
 </body>
 
