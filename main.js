@@ -14,10 +14,49 @@ class Calendar {
 		this.month = month;
 		this.year = year;
 		this.day = day;
-		this.setDay();
 	}
 
-	setDay = () => actualDay.textContent = `${monthText[this.month]} ${this.day}`;
+	increaseYear = () => this.year++;
+
+	increaseMonth = () => {
+		if (this.month == 12) {
+			this.increaseYear();
+			this.month = 1;
+		} else {
+			this.month += 1;
+		}
+	}
+
+	increaseDay = () => {
+		if (this.day == this.daysInMonth()) {
+			this.increaseMonth();
+			this.day = 1;
+		} else {
+			this.day += 1;
+		}
+	}
+
+	reduceDay = () => {
+		if (this.day == 1) {
+			this.reduceMonth();
+			this.day = this.daysInMonth();
+		} else {
+			this.day -= 1;
+		}
+	}
+
+	reduceMonth = () => {
+		if (this.month == 1) {
+			this.reduceYear();
+			this.month = 12;
+		} else {
+			this.month -= 1;
+		}
+	}
+
+	reduceYear = () => this.year -= 1;
+
+	printDay = () => actualDay.textContent = `${monthText[this.month - 1]} ${this.day}, ${this.year}`;
 
 	daysInMonth = () => new Date(this.year, this.month, 0).getDate();
 
@@ -25,6 +64,7 @@ class Calendar {
 
 	printCalendar = () => {
 		calendar.innerHTML = '';
+		this.printDay();
 		const firstDay = this.firstDay();
 		const daysInMonth = this.daysInMonth();
 		if (firstDay > 1) {
@@ -53,15 +93,24 @@ class Calendar {
 
 }
 
+class Movie {
+	constructor(title, year) {
+		this.title = title;
+		this.year = year;
+	}
+}
+
 const c = new Calendar(11, 2023, 29);
 c.printCalendar();
 
 yesterday.onclick = () => {
-	c.day--;
+	console.log(c.day);
+	c.reduceDay();
+	console.log(c.day);
 	c.printCalendar();
 }
 
 tomorrow.onclick = () => {
-	c.day++;
+	c.increaseDay();
 	c.printCalendar();
 }
