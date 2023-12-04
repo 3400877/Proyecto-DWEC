@@ -2,12 +2,16 @@ const calendar = document.getElementsByClassName("days").item(0);
 const actualDay = document.getElementById("actual-day");
 const yesterday = document.getElementById("yesterday");
 const tomorrow = document.getElementById("tomorrow");
+const days = document.getElementsByClassName("day");
 
 const monthText = [
 	'January', 'February', 'March', 'April',
 	'May', 'June', 'July', 'August',
 	'September', 'October', 'November', 'December'
 ];
+
+const ACTUAL = "actual framed day";
+const DAY = "framed day";
 
 class Calendar {
 	constructor(month, year, day) {
@@ -25,6 +29,7 @@ class Calendar {
 		} else {
 			this.month += 1;
 		}
+		this.printCalendar();
 	}
 
 	increaseDay = () => {
@@ -34,6 +39,7 @@ class Calendar {
 		} else {
 			this.day += 1;
 		}
+		this.updateDay();
 	}
 
 	reduceDay = () => {
@@ -43,6 +49,7 @@ class Calendar {
 		} else {
 			this.day -= 1;
 		}
+		this.updateDay();
 	}
 
 	reduceMonth = () => {
@@ -52,45 +59,95 @@ class Calendar {
 		} else {
 			this.month -= 1;
 		}
+		this.printCalendar();
 	}
 
 	reduceYear = () => this.year -= 1;
 
-	printDay = () => actualDay.textContent = `${monthText[this.month - 1]} ${this.day}, ${this.year}`;
+	printDay = (element) => element.textContent = `${monthText[this.month - 1]} ${this.day}, ${this.year}`;
 
 	daysInMonth = () => new Date(this.year, this.month, 0).getDate();
 
 	firstDay = () => new Date(this.year, this.month - 1, 1).getDay();
 
 	printCalendar = () => {
-		calendar.innerHTML = '';
-		this.printDay();
+		const calendarChildNodes = [];
 		const firstDay = this.firstDay();
 		const daysInMonth = this.daysInMonth();
 		if (firstDay > 1) {
 			for (let index = 1; index < firstDay; index++) {
-				calendar.appendChild(Calendar.appendDay('', false));
+				calendarChildNodes.push(Calendar.appendDay('', false));
 			}
 		}
 		for (let index = 1; index <= daysInMonth; index++) {
 			const dayElement = index == this.day
 				? Calendar.appendDay(index, true)
 				: Calendar.appendDay(index, false);
-			calendar.appendChild(dayElement);
+			calendarChildNodes.push(dayElement);
 		}
+		calendar.replaceChildren(...calendarChildNodes);
+		this.printDay(actualDay);
+	}
+
+	setDay = (day) => {
+		this.day = day;
+		this.updateDay();
+	}
+
+	updateDay = () => {
+		[...days].forEach((day, index) => {
+			if (day.textContent == this.day ) {
+				days.item(index).setAttribute("class", ACTUAL);
+			} else if (day.getAttribute("class") == ACTUAL) {
+				days.item(index).setAttribute("class", DAY);
+			}
+		});
+		this.printDay(actualDay);
 	}
 
 	static appendDay = (day, actual) => {
 		const dayElement = document.createElement("time");
 		if (actual) {
-			dayElement.setAttribute("class", "actual framed");
+			dayElement.setAttribute("class", ACTUAL);
 		} else {
-			dayElement.setAttribute("class", "framed");
+			dayElement.setAttribute("class", DAY);
 		}
 		dayElement.textContent = day;
 		return dayElement;
 	}
+	
+	getDate = () => {
+		return new Date(this.year, this.month, this.day);
+	}
 
+	bindControls = () => {
+		yesterday.onclick = () => this.decreaseDay();
+		tomorrow.onclick = () => this.increaseDay();
+		calendar.addEventListener("click", (day) => {
+			if (day.target && day.target.tagName == "TIME") {
+				this.setDay(day.target.textContent);
+			}
+		})
+	}
+}
+
+class MovieList {
+	constructor(calendar) {
+		this.list = [];
+		this.calendar = calendar;
+	}
+
+	addMovie(movie) {
+		this.list.push(movie);
+	}
+
+	addMovieJSON(movieJSON) {
+		this.addMovies(...JSON.parse(movieJSON));
+	}
+
+	addMovies(...movies) {
+		movies.forEach((movie) => this.list.push(movie));
+	}
 }
 
 class Movie {
@@ -98,19 +155,10 @@ class Movie {
 		this.title = title;
 		this.year = year;
 	}
+
+
 }
 
 const c = new Calendar(11, 2023, 29);
 c.printCalendar();
-
-yesterday.onclick = () => {
-	console.log(c.day);
-	c.reduceDay();
-	console.log(c.day);
-	c.printCalendar();
-}
-
-tomorrow.onclick = () => {
-	c.increaseDay();
-	c.printCalendar();
-}
+c.bindControls();
