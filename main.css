@@ -169,3 +169,7 @@ main {
 #calendar time:empty {
     filter: grayscale(0.4);
 }
+
+.popup {
+    display: none;
+}

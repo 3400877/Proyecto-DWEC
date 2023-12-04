@@ -3,6 +3,10 @@ const actualDay = document.getElementById("actual-day");
 const yesterday = document.getElementById("yesterday");
 const tomorrow = document.getElementById("tomorrow");
 const days = document.getElementsByClassName("day");
+const movieListHeader = document.getElementById("h_movies")
+// Navigation bar stuff
+const addMovieButton = document.getElementById("add-movie");
+const addMoviePopup = document.getElementById("movie-popup");
 
 const monthText = [
 	'January', 'February', 'March', 'April',
@@ -18,6 +22,8 @@ class Calendar {
 		this.month = month;
 		this.year = year;
 		this.day = day;
+		this.bindControls();
+		this.printCalendar();
 	}
 
 	increaseYear = () => this.year++;
@@ -135,19 +141,22 @@ class MovieList {
 	constructor(calendar) {
 		this.list = [];
 		this.calendar = calendar;
+		this.printDate();
 	}
 
-	addMovie(movie) {
+	addMovie = (movie) => {
 		this.list.push(movie);
 	}
-
-	addMovieJSON(movieJSON) {
+	
+	addMovieJSON = (movieJSON) => {
 		this.addMovies(...JSON.parse(movieJSON));
 	}
-
-	addMovies(...movies) {
+	
+	addMovies = (...movies) => {
 		movies.forEach((movie) => this.list.push(movie));
 	}
+	
+	printDate = () => this.calendar.printDay(movieListHeader);
 }
 
 class Movie {
@@ -155,10 +164,11 @@ class Movie {
 		this.title = title;
 		this.year = year;
 	}
-
-
 }
 
-const c = new Calendar(11, 2023, 29);
-c.printCalendar();
-c.bindControls();
+const calendar1 = new Calendar(11, 2023, 29);
+const movieList1 = new MovieList(calendar1);
+
+addMovieButton.onclick = () => addMoviePopup.style.display = addMoviePopup.style.display == 'none'
+	? 'flex'
+	: 'none';

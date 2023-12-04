@@ -14,8 +14,15 @@
 	<nav>
 		<a href="#"><strong>...</strong>
 		</a><strong>Moviedar - Movie Calendar</strong>
-		<a href="#" role="button"><strong>Add Movie</strong></a>
+		<a href="#" role="button" id="add-movie"><strong>Add Movie</strong></a>
 	</nav>
+	<div id="movie-popup" class="framed popup">
+		<form>
+			<label class="framed"> Title <input type="text" name="title"></label>
+			<label class="framed">Release Date <input type="date" name="title"></label>
+			<label class="framed">Genre <input type="number" name="year"></label>
+		</form>
+	</div>
 	<main class="framed">
 		<header class="btn-group">
 			<button class="framed button" id="yesterday">Yesterday</button>
@@ -35,9 +42,9 @@
 			<div class="days">
 			</div>
 		</article>
-		<article>
-			<h1 class="framed"></h1>
-			<div class="framed movies"></div>
+		<article class="framed">
+			<h1 id="h_movies"></h1>
+			<div class="movies"></div>
 		</article>
 
 	</main>
