@@ -156,6 +156,10 @@ article#calendar {
     overflow: hidden;
 }
 
+.shadow {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2), 10px 10px 5px rgba(0, 0, 0, 0.2), 15px 15px 5px rgba(0, 0, 0, 0.3);
+}
+
 #calendar time {
     display: flex;
     align-items: center;
@@ -177,6 +181,13 @@ article#calendar {
 
 .popup {
     display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg);
+    z-index: 2;
+    padding: 20px;
 }
 
 h1#h_movies {
