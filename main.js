@@ -6,7 +6,7 @@ const days = document.getElementsByClassName("day");
 const movieListHeader = document.getElementById("h_movies");
 // Navigation bar stuff
 const addMovieButton = document.getElementById("add-movie");
-const addMoviePopup = document.getElementById("movie-popup");
+const movieForm = document.getElementById("movie-form");
 
 
 const monthText = [
@@ -144,10 +144,7 @@ class MovieList {
 		this.movieList = [];
 		this.calendar = calendar;
 		this.printDate();
-		addEventListener("dateUpdated", () => {
-			this.printDate();
-			this.addMovieListArticle();
-		});
+		this.bindEvents();
 	}
 
 	addMovie = (movie) => {
@@ -205,6 +202,32 @@ class MovieList {
 		})
 		movieListHeader.parentNode.replaceChild(movieListArticle, movieListHeader.nextSibling);
 	}
+
+	bindEvents = () => {
+		addEventListener("dateUpdated", () => {
+			this.printDate();
+			this.addMovieListArticle();
+		});
+
+		movieForm.onsubmit = () => {
+			const title = document.getElementById('title').value;
+			const director = document.getElementById('director').value;
+			const date = new Date(document.getElementById('date').value);
+			const cast = document.getElementById('cast').value;
+		
+			const movie = {
+				title: title,
+				year: date.getFullYear(),
+				month: date.getMonth + 1,
+				day: date.getDate(),
+				director: director,
+				cast: cast.split(',')
+			}
+		
+			this.addMovie(movie);
+			this.addMovieListArticle();
+		}
+	}
 }
 
 const movieJsonString = `{
@@ -251,6 +274,6 @@ const movieList1 = new MovieList(calendar1);
 movieList1.addMovieJSON(movieJsonString);
 movieList1.addMovieListArticle();
 
-addMovieButton.onclick = () => addMoviePopup.style.display = addMoviePopup.style.display == 'none'
+addMovieButton.onclick = () => movieForm.style.display = movieForm.style.display == 'none'
 	? 'flex'
 	: 'none';
