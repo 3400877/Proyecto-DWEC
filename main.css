@@ -73,6 +73,10 @@ body {
     border-right: var(--border);
 }
 
+.bordered {
+    border: var(--border-light);
+}
+
 .title {
     margin: 10px;
 }
@@ -121,11 +125,11 @@ main {
     background-color: var(--secondary-transparent);
 }
 
-#calendar {
-    overflow: hidden;
+article#calendar {
     margin: 0;
     padding: 0;
     background-color: var(--bg);
+    float: left;
 }
 
 .weekdays {
@@ -148,13 +152,14 @@ main {
     display: grid;
     text-align: center;
     grid-template-columns: repeat(7, 100px);
+    grid-auto-rows: 50px;
+    overflow: hidden;
 }
 
 #calendar time {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
     padding: 0;
     margin: 0;
     background-color: var(--secondary);
@@ -172,4 +177,25 @@ main {
 
 .popup {
     display: none;
+}
+
+h1#h_movies {
+    margin: 10px;
+    text-align: center;
+    background-color: var(--bg);
+    font-weight: 800;
+}
+
+article {
+    margin: 10px;
+}
+
+.movie {
+    background-color: var(--bg);
+    padding: 10px;
+    margin: 10px;
+}
+
+.movie h2 {
+    font-weight: 800;
 }
