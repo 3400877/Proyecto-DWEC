@@ -163,7 +163,9 @@ class MovieList {
 		// Create a new article for the list of movies
 		const movieListArticle = document.createElement('article');
 
-		this.movieList.forEach(movie => {
+		const filteredMovieList = this.movieList.filter(movie => movie.month == this.calendar.month);
+
+		filteredMovieList.forEach(movie => {
 			// Create a div for each movie
 			const movieDiv = document.createElement('div');
 			movieDiv.setAttribute("class", "movie bordered");
