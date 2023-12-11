@@ -23,6 +23,12 @@ const monthText = [
 const ACTUAL = "actual framed day inverse";
 const DAY = "framed day";
 
+makeVisible = (element) => element.style.display = element.style.display == 'none'
+	? 'flex'
+	: 'none';
+
+validateMovie = (title, director, date, cast) => title.length > 0 && director.length > 0 && (date ?? undefined) && cast.some(actor => actor.length > 0);
+
 const moviesJsonString = `
 {
     "movies": [
@@ -380,20 +386,25 @@ class MovieList {
 		movieForm.onsubmit = () => {
 			const title = document.getElementById('title').value;
 			const director = document.getElementById('director').value;
-			const date = new Date(document.getElementById('date').value);
-			const cast = document.getElementById('cast').value;
+			const date = document.getElementById('date').value;
+			const cast = document.getElementById('cast').value.split(',');
 
-			const movie = {
-				title: title,
-				year: date.getFullYear(),
-				month: date.getMonth() + 1,
-				day: date.getDate(),
-				director: director,
-				cast: cast.split(',')
+			if (validateMovie(title, director, date, cast)) {
+				const movie = {
+					title: title,
+					year: date.getFullYear(),
+					month: date.getMonth() + 1,
+					day: new Date(date).getDate(),
+					director: director,
+					cast: cast
+				}
+	
+				this.addMovie(movie);
+				this.addMovieListArticle();
+			} else {
+				window.alert("There was an error receiving the data");
 			}
 
-			this.addMovie(movie);
-			this.addMovieListArticle();
 			return false;
 		}
 
@@ -433,10 +444,6 @@ const calendar1 = new Calendar(actualDate.getMonth() + 1, actualDate.getFullYear
 const movieList1 = new MovieList(calendar1);
 movieList1.addMovieJSON(moviesJsonString);
 movieList1.addMovieListArticle();
-
-makeVisible = (element) => element.style.display = element.style.display == 'none'
-	? 'flex'
-	: 'none';
 
 addMovieButton.onclick = () => makeVisible(movieForm);
 addNavPopup.onclick = () => makeVisible(navPopup);
