@@ -37,6 +37,7 @@ class Calendar {
 			this.month += 1;
 		}
 		this.printCalendar();
+		dispatchEvent(new Event('dateUpdated'));
 	}
 
 	increaseDay = () => {
@@ -67,11 +68,13 @@ class Calendar {
 			this.month -= 1;
 		}
 		this.printCalendar();
+		dispatchEvent(new Event('dateUpdated'));
 	}
 
 	reduceYear = () => this.year -= 1;
 
-	printDay = (element) => element.textContent = `${monthText[this.month - 1]} ${this.day}, ${this.year}`;
+	printFullDay = (element) => element.textContent = `${monthText[this.month - 1]} ${this.day}, ${this.year}`;
+	printDay = (element) => element.textContent = `${monthText[this.month - 1]} ${this.year}`;
 
 	daysInMonth = () => new Date(this.year, this.month, 0).getDate();
 
@@ -93,7 +96,7 @@ class Calendar {
 			calendarChildNodes.push(dayElement);
 		}
 		calendar.replaceChildren(...calendarChildNodes);
-		this.printDay(actualDay);
+		this.printFullDay(actualDay);
 	}
 
 	setDay = (day) => {
@@ -109,8 +112,7 @@ class Calendar {
 				days.item(index).setAttribute("class", DAY);
 			}
 		});
-		this.printDay(actualDay);
-		dispatchEvent(new Event('dateUpdated'));
+		this.printFullDay(actualDay);
 	}
 
 	static appendDay = (day, actual) => {
@@ -159,49 +161,63 @@ class MovieList {
 
 	printDate = () => this.calendar.printDay(movieListHeader);
 
+	// This function adds an article with the list of movies per month
 	addMovieListArticle = () => {
 		// Create a new article for the list of movies
 		const movieListArticle = document.createElement('article');
 
 		const filteredMovieList = this.movieList.filter(movie => movie.month == this.calendar.month);
 
-		filteredMovieList.forEach(movie => {
-			// Create a div for each movie
-			const movieDiv = document.createElement('div');
-			movieDiv.setAttribute("class", "movie bordered");
+		const groupedMovieList = Object.groupBy(filteredMovieList, ({ day }) => day);
 
-			// Add the title of the movie
-			const movieTitle = document.createElement('h2');
-			movieTitle.textContent = movie.title;
-			movieDiv.appendChild(movieTitle);
+		Object.entries(groupedMovieList).forEach(([day, movies]) => {
 
-			// Add the movie year to the div
-			const movieYear = document.createElement('p');
-			movieYear.textContent = `Year: ${movie.year}`;
-			movieDiv.appendChild(movieYear);
+			// Create a div for each day
+			const dayDiv = document.createElement('div');
 
-			// Add the movie director to the div
-			const movieDirector = document.createElement('p');
-			movieDirector.textContent = `Director: ${movie.director}`;
-			movieDiv.appendChild(movieDirector);
+			// Add the date to the div
+			const dayTitle = document.createElement('h2');
+			dayTitle.setAttribute("class", "header bordered")
+			dayTitle.textContent = `${this.calendar.month}/${day}/${this.calendar.year}`;
+			dayDiv.appendChild(dayTitle);
 
-			// Create a new div for the cast
-			const castDiv = document.createElement('div');
+			movies.forEach(movie => {
+				// Create a div for each movie
+				const movieDiv = document.createElement('div');
+				movieDiv.setAttribute("class", "movie bordered");
 
-			// Loop through each actor in the cast array
-			movie.cast.forEach(actor => {
-				// Add the actor to the cast div
-				const castMember = document.createElement('p');
-				castMember.textContent = actor;
-				castDiv.appendChild(castMember);
-			});
+				// Add the title of the movie
+				const movieTitle = document.createElement('h2');
+				movieTitle.textContent = movie.title;
+				movieDiv.appendChild(movieTitle);
 
-			// Add the cast div to the movie div
-			movieDiv.appendChild(castDiv);
+				// Add the movie director to the div
+				const movieDirector = document.createElement('p');
+				movieDirector.textContent = `Director: ${movie.director}`;
+				movieDiv.appendChild(movieDirector);
+
+				// Create a new div for the cast
+				const castDiv = document.createElement('div');
+
+				// Loop through each actor in the cast array
+				movie.cast.forEach(actor => {
+					// Add the actor to the cast div
+					const castMember = document.createElement('p');
+					castMember.textContent = actor;
+					castDiv.appendChild(castMember);
+				});
+
+				// Add the cast div to the movie div
+				movieDiv.appendChild(castDiv);
+
+				// Now, we append the movie div to the day div
+				dayDiv.append(movieDiv);
+			})
 
 			// Add the movie div to the article
-			movieListArticle.appendChild(movieDiv);
-		})
+			movieListArticle.appendChild(dayDiv);
+		});
+
 		movieListHeader.parentNode.replaceChild(movieListArticle, movieListHeader.nextSibling);
 	}
 
@@ -216,16 +232,16 @@ class MovieList {
 			const director = document.getElementById('director').value;
 			const date = new Date(document.getElementById('date').value);
 			const cast = document.getElementById('cast').value;
-		
+
 			const movie = {
 				title: title,
 				year: date.getFullYear(),
-				month: date.getMonth + 1,
+				month: date.getMonth() + 1,
 				day: date.getDate(),
 				director: director,
 				cast: cast.split(',')
 			}
-		
+
 			this.addMovie(movie);
 			this.addMovieListArticle();
 		}

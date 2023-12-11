@@ -190,11 +190,15 @@ article#calendar {
     padding: 20px;
 }
 
-h1#h_movies {
+.header {
     margin: 10px;
     text-align: center;
     background-color: var(--bg);
-    font-weight: 800;
+    font-weight: 600;
+}
+
+h1#h_movies {
+   font-weight: 800;
 }
 
 article {
@@ -210,3 +214,4 @@ article {
 .movie h2 {
     font-weight: 800;
 }
+
