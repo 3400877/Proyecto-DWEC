@@ -60,7 +60,7 @@ const moviesJsonString = `
             "title": "Renaissance: A Film By Beyoncé",
             "year": 2023,
 			"month": 12,
-			"day": 21,
+			"day": 22,
             "director": "Beyoncé and Ed Burke",
             "cast": []
         },
@@ -114,7 +114,7 @@ const moviesJsonString = `
 			"title": "Oppenheimer",
 			"year": 2023,
 			"month": 12,
-			"day": 21,
+			"day": 25,
 			"director": "Christopher Nolan",
 			"cast": []
 		},
@@ -391,7 +391,7 @@ class MovieList {
 			const cast = document.getElementById('cast').value.split(',');
 
 			if (validateMovie(title, director, dateStr, cast)) {
-				const date = new Date(date);
+				const date = new Date(dateStr);
 				const movie = {
 					title: title,
 					year: date.getFullYear(),
