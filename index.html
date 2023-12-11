@@ -12,11 +12,11 @@
 
 <body class="background-tint">
 	<nav>
-		<a id="add-popover" class="popover-list"><strong>...</strong>
-		<div style="display: none;">
-			<a id="watch-movie"><strong>Mark Movie as watched</strong></a>
-			<a id="remove-movie"><strong>Remove movie</strong></a>
-		</div>
+		<a id="add-popup"><strong>...</strong>
+			<div id="nav-popup" class="bordered shadow">
+				<a id="watch-movie-button"><strong>Mark Movie as watched</strong></a>
+				<a id="remove-movie-button"><strong>Remove movie</strong></a>
+			</div>
 		</a><strong>Moviedar - Movie Calendar</strong>
 		<a id="add-movie"><strong>Add Movie</strong></a>
 	</nav>
@@ -41,6 +41,24 @@
 			<br>
 			<input type="submit" value="Submit">
 			<input type="reset" value="Reset">
+		</form>
+	</div>
+
+	<div id="remove-movie-form" class="framed popup shadow">
+		<form>
+			<label>Title:<br>
+				<input type="text" id="rm-title">
+			</label>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<div id="watch-movie-form" class="framed popup shadow">
+		<form>
+			<label>Title:<br>
+				<input type="text" id="watch-title">
+			</label>
+			<input type="submit" value="Submit">
 		</form>
 	</div>
 

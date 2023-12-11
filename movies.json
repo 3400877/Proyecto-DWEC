@@ -1,0 +1,37 @@
+{
+    "movies": [
+        {
+            "title": "Silent Night",
+            "year": 2023,
+			"month": 11,
+			"day": 30,
+            "director": "Camille Griffin",
+            "cast": [
+                "Keira Knightley",
+                "Lily-Rose Depp",
+                "Matthew Goode"
+            ]
+        },
+        {
+            "title": "Candy Cane Lane",
+            "year": 2023,
+			"month": 10,
+			"day": 1,
+            "director": "Maggie Carey",
+            "cast": [
+                "Emma Stone",
+                "Ryan Gosling",
+                "Zoey Deutch"
+            ]
+        },
+        {
+            "title": "Renaissance: A Film By Beyoncé",
+            "year": 2023,
+			"month": 12,
+			"day": 21,
+            "director": "Beyoncé and Ed Burke",
+            "cast": []
+        }
+    ]
+}
+

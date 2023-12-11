@@ -29,12 +29,17 @@ button {
     --border-color-light: hsla(0, 0%, 100%, 0.16);
     --border: 2px solid var(--border-color-dark);
     --border-light: 2px solid var(--border-color-light);
-    --bg: hsl(308, 47%, 15%);
-    --primary: hsl(309, 41%, 28%);
-    --secondary: hsl(311, 32%, 13%);
-    --secondary-transparent: hsla(311, 32%, 13%, 0.67);
+    --bg: hsl(0, 0%, 10%);
+    --primary: hsl(241, 45%, 33%);
+    --secondary: hsl(241, 51%, 30%);
+    --secondary-transparent: hsla(241, 32%, 13%, 0.67);
     --fg: white;
     --fg-inverse: rgb(0, 0, 0);
+    --watched: hsl(150, 59%, 17%);
+}
+
+.watched {
+    background-color: var(--watched) !important;
 }
 
 .button {
@@ -51,8 +56,8 @@ time#actual-day {
 }
 
 #calendar {
-    --primary: hsl(30, 81%, 47%);
-    --secondary: hsl(310, 38%, 38%);
+    --primary: hsl(12, 58%, 55%);
+    --secondary: hsl(241, 66%, 55%);
 }
 
 body {
@@ -82,7 +87,7 @@ body {
 }
 
 .background-tint {
-    background-color: var(--bg);
+    background-color: var(--primary);
     background-blend-mode: overlay;
 }
 
@@ -103,6 +108,7 @@ nav {
 nav a {
     text-decoration: none;
     color: var(--fg);
+    cursor: pointer;
 }
 
 strong {
@@ -120,10 +126,11 @@ main {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     background-color: var(--secondary-transparent);
     overflow: hi;
+    margin-bottom: 10px;
 }
 
 article#calendar {
@@ -173,7 +180,6 @@ article#calendar {
 
 #calendar time.actual {
     background-color: var(--primary);
-    border: none;
     font-weight: bold;
 }
 
@@ -190,6 +196,20 @@ article#calendar {
     background-color: var(--bg);
     z-index: 2;
     padding: 20px;
+}
+
+#nav-popup {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    z-index: 1;
+    padding: 0 10px;
+    top: 50px;
+    background-color: var(--bg);
+}
+
+#nav-popup a {
+    margin-bottom: 20px;
 }
 
 .header {

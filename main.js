@@ -6,8 +6,13 @@ const days = document.getElementsByClassName("day");
 const movieListHeader = document.getElementById("h_movies");
 // Navigation bar stuff
 const addMovieButton = document.getElementById("add-movie");
+const addNavPopup = document.getElementById("add-popup");
 const movieForm = document.getElementById("movie-form");
-
+const navPopup = document.getElementById("nav-popup");
+const removeMovieButton = document.getElementById("remove-movie-button");
+const watchMovieButton = document.getElementById("watch-movie-button");
+const removeMovieForm = document.getElementById("remove-movie-form");
+const watchMovieForm = document.getElementById("watch-movie-form");
 
 const monthText = [
 	'January', 'February', 'March', 'April',
@@ -15,8 +20,134 @@ const monthText = [
 	'September', 'October', 'November', 'December'
 ];
 
-const ACTUAL = "actual framed day";
+const ACTUAL = "actual framed day inverse";
 const DAY = "framed day";
+
+const moviesJsonString = `
+{
+    "movies": [
+        {
+            "title": "Silent Night",
+            "year": 2023,
+			"month": 11,
+			"day": 30,
+            "director": "Camille Griffin",
+            "cast": [
+                "Keira Knightley",
+                "Lily-Rose Depp",
+                "Matthew Goode"
+            ]
+        },
+        {
+            "title": "Candy Cane Lane",
+            "year": 2023,
+			"month": 10,
+			"day": 1,
+            "director": "Maggie Carey",
+            "cast": [
+                "Emma Stone",
+                "Ryan Gosling",
+                "Zoey Deutch"
+            ]
+        },
+        {
+            "title": "Renaissance: A Film By Beyoncé",
+            "year": 2023,
+			"month": 12,
+			"day": 21,
+            "director": "Beyoncé and Ed Burke",
+            "cast": []
+        },
+		{
+			"title": "The Marvels",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Nia DaCosta",
+			"cast": [
+				"Brie Larson",
+				"Teyonah Parris",
+				"Iman Vallani"
+			]
+		},
+		{
+			"title": "Napoleon",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Ridley Scott",
+			"cast": [
+				"Joaquin Phoenix"
+			]
+		},
+		{
+			"title": "Wish",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Disney",
+			"cast": []
+		},
+		{
+			"title": "Thanksgiving",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Eli Roth",
+			"cast": []
+		},
+		{
+			"title": "Spider-Man: Across the Spider-Verse",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "James Gunn",
+			"cast": []
+		},
+		{
+			"title": "Oppenheimer",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Christopher Nolan",
+			"cast": []
+		},
+		{
+			"title": "Guardians of the Galaxy Vol. 3",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "James Gunn",
+			"cast": []
+		},
+		{
+			"title": "The Color Purple",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Steven Spielberg",
+			"cast": []
+		},
+		{
+			"title": "Leave the World Behind",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Ava DuVernay",
+			"cast": []
+		},
+		{
+			"title": "Ferrari",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Curtis Hanson",
+			"cast": []
+		}
+    ]
+}
+
+`
 
 class Calendar {
 	constructor(month, year, day) {
@@ -149,6 +280,19 @@ class MovieList {
 		this.bindEvents();
 	}
 
+	// Mark a movie as watched
+	watchMovie = (movie) => {
+		movie.watched = !(movie.watched ?? false);
+	};
+
+	// Remove a movie from the list
+	removeMovie = (movie) => {
+		const index = this.movieList.findIndex(m => m.title === movie.title);
+		if (index !== -1) {
+			this.movieList.splice(index, 1);
+		}
+	}
+
 	addMovie = (movie) => {
 		this.movieList.push(movie);
 	}
@@ -166,8 +310,10 @@ class MovieList {
 		// Create a new article for the list of movies
 		const movieListArticle = document.createElement('article');
 
+		// We filter for the list of movies in a month
 		const filteredMovieList = this.movieList.filter(movie => movie.month == this.calendar.month);
 
+		// And we group those movies by the day
 		const groupedMovieList = Object.groupBy(filteredMovieList, ({ day }) => day);
 
 		Object.entries(groupedMovieList).forEach(([day, movies]) => {
@@ -184,7 +330,11 @@ class MovieList {
 			movies.forEach(movie => {
 				// Create a div for each movie
 				const movieDiv = document.createElement('div');
-				movieDiv.setAttribute("class", "movie bordered");
+				if (movie.watched) {
+					movieDiv.setAttribute("class", "movie bordered watched");
+				} else {
+					movieDiv.setAttribute("class", "movie bordered");
+				}
 
 				// Add the title of the movie
 				const movieTitle = document.createElement('h2');
@@ -244,54 +394,51 @@ class MovieList {
 
 			this.addMovie(movie);
 			this.addMovieListArticle();
+			return false;
+		}
+
+		removeMovieForm.onsubmit = () => {
+			const title = document.getElementById('rm-title').value;
+			const movie = this.movieList.find(movie => movie.title === title);
+			if (movie) {
+				this.removeMovie(movie);
+			}
+			this.addMovieListArticle();
+			return false;
+		}
+
+		watchMovieForm.onsubmit = () => {
+			const title = document.getElementById('watch-title').value;
+			const movie = this.movieList.find(movie => movie.title === title);
+			if (movie) {
+				this.watchMovie(movie);
+			}
+			this.addMovieListArticle();
+			return false;
 		}
 	}
 }
 
-const movieJsonString = `{
-    "movies": [
-        {
-            "title": "Silent Night",
-            "year": 2023,
-			"month": 11,
-			"day": 30,
-            "director": "Camille Griffin",
-            "cast": [
-                "Keira Knightley",
-                "Lily-Rose Depp",
-                "Matthew Goode"
-            ]
-        },
-        {
-            "title": "Candy Cane Lane",
-            "year": 2023,
-			"month": 10,
-			"day": 1,
-            "director": "Maggie Carey",
-            "cast": [
-                "Emma Stone",
-                "Ryan Gosling",
-                "Zoey Deutch"
-            ]
-        },
-        {
-            "title": "Renaissance: A Film By Beyoncé",
-            "year": 2023,
-			"month": 12,
-			"day": 21,
-            "director": "Beyoncé and Ed Burke",
-            "cast": []
-        }
-    ]
-}`;
 
 const actualDate = new Date();
 
+// addMoviesFromJSONFile = (movieListObject) => {
+// 	fetch("./movies.json")
+// 		.then(response => response.json())
+// 		.then(moviesJson => movieListObject.addMovieJSON(movies))
+// 		.catch(error => console.error('There was an error. The error was: ', error));
+// }
+
 const calendar1 = new Calendar(actualDate.getMonth() + 1, actualDate.getFullYear(), actualDate.getDate());
 const movieList1 = new MovieList(calendar1);
-movieList1.addMovieJSON(movieJsonString);
+movieList1.addMovieJSON(moviesJsonString);
 movieList1.addMovieListArticle();
 
-addMovieButton.onclick = () => movieForm.style.display = movieForm.style.display == 'none'
+makeVisible = (element) => element.style.display = element.style.display == 'none'
 	? 'flex'
 	: 'none';
+
+addMovieButton.onclick = () => makeVisible(movieForm);
+addNavPopup.onclick = () => makeVisible(navPopup);
+removeMovieButton.onclick = () => makeVisible(removeMovieForm);
+watchMovieButton.onclick = () => makeVisible(watchMovieForm);
