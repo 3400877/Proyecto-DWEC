@@ -383,18 +383,20 @@ class MovieList {
 			this.addMovieListArticle();
 		});
 
-		movieForm.onsubmit = () => {
+		movieForm.onsubmit = (event) => {
+			event.preventDefault();
 			const title = document.getElementById('title').value;
 			const director = document.getElementById('director').value;
-			const date = document.getElementById('date').value;
+			const dateStr = document.getElementById('date').value;
 			const cast = document.getElementById('cast').value.split(',');
 
-			if (validateMovie(title, director, date, cast)) {
+			if (validateMovie(title, director, dateStr, cast)) {
+				const date = new Date(date);
 				const movie = {
 					title: title,
 					year: date.getFullYear(),
 					month: date.getMonth() + 1,
-					day: new Date(date).getDate(),
+					day: date.getDate(),
 					director: director,
 					cast: cast
 				}
@@ -408,7 +410,8 @@ class MovieList {
 			return false;
 		}
 
-		removeMovieForm.onsubmit = () => {
+		removeMovieForm.onsubmit = (event) => {
+			event.preventDefault();
 			const title = document.getElementById('rm-title').value;
 			const movie = this.movieList.find(movie => movie.title === title);
 			if (movie) {
@@ -418,7 +421,8 @@ class MovieList {
 			return false;
 		}
 
-		watchMovieForm.onsubmit = () => {
+		watchMovieForm.onsubmit = (event) => {
+			event.preventDefault();
 			const title = document.getElementById('watch-title').value;
 			const movie = this.movieList.find(movie => movie.title === title);
 			if (movie) {
