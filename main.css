@@ -25,14 +25,14 @@ button {
 }
 
 :root {
-    --border-color-dark: hsla(0, 0%, 0%, 16%);
+    --border-color-dark: hsla(0, 0%, 0%, 0.33);
     --border-color-light: hsla(0, 0%, 100%, 0.16);
     --border: 2px solid var(--border-color-dark);
     --border-light: 2px solid var(--border-color-light);
-    --bg: hsl(308, 100%, 19%);
-    --primary: hsl(310, 61%, 32%);
-    --secondary: hsl(308, 16%, 18%);
-    --secondary-transparent: hsla(308, 16%, 18%, 67%);
+    --bg: hsl(308, 47%, 15%);
+    --primary: hsl(309, 41%, 28%);
+    --secondary: hsl(311, 32%, 13%);
+    --secondary-transparent: hsla(311, 32%, 13%, 0.67);
     --fg: white;
     --fg-inverse: rgb(0, 0, 0);
 }
@@ -123,6 +123,7 @@ main {
     height: 100vh;
     width: 100vw;
     background-color: var(--secondary-transparent);
+    overflow: hi;
 }
 
 article#calendar {
@@ -172,6 +173,7 @@ article#calendar {
 
 #calendar time.actual {
     background-color: var(--primary);
+    border: none;
     font-weight: bold;
 }
 
@@ -213,5 +215,9 @@ article {
 
 .movie h2 {
     font-weight: 800;
+}
+
+.movies {
+    width: 800px;
 }
 
