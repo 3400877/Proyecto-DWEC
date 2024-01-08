@@ -464,7 +464,6 @@ removeMovieButton.onclick = () => makeVisible(removeMovieForm, true);
 watchMovieButton.onclick = () => makeVisible(watchMovieForm, true);
 
 document.body.addEventListener("keydown", (event) => {
-	console.log(event.code);
 	if (event.code === "KeyM") {
 		alert("You pressed the letter 'm'")
 	};
@@ -473,6 +472,18 @@ document.body.addEventListener("keydown", (event) => {
 document.body.addEventListener("keydown", (event) => {
 	if (event.code === "Escape") {
 		makeVisible(movieForm, false);
-		makeVisible(navPopup, false)
+		makeVisible(navPopup, false);
 	}
 })
+
+const buttons = Object.values(document.getElementsByTagName("button")).concat(Object.values(document.getElementsByClassName("button")));
+
+buttons.forEach(button => {
+	button.addEventListener("mouseover", () => {
+		button.classList.add("hovered");
+	});
+});
+
+buttons.forEach(button => button.addEventListener("mouseout", () => {
+	button.classList.remove("hovered");
+}));
