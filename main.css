@@ -241,3 +241,6 @@ article {
     width: 800px;
 }
 
+.hovered {
+    filter: brightness(150%);
+}

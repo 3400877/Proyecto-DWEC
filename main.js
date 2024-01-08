@@ -1,7 +1,7 @@
 const calendar = document.getElementsByClassName("days").item(0);
-const actualDay = document.getElementById("actual-day");
 const yesterday = document.getElementById("yesterday");
 const tomorrow = document.getElementById("tomorrow");
+const actualDay = document.getElementById("actual-day");
 const days = document.getElementsByClassName("day");
 const movieListHeader = document.getElementById("h_movies");
 // Navigation bar stuff
@@ -23,11 +23,11 @@ const monthText = [
 const ACTUAL = "actual framed day inverse";
 const DAY = "framed day";
 
-makeVisible = (element) => element.style.display = element.style.display == 'none'
+const makeVisible = (element, bool) => element.style.display = bool
 	? 'flex'
 	: 'none';
 
-validateMovie = (title, director, date, cast) => title.length > 0 && director.length > 0 && (date ?? undefined) && cast.some(actor => actor.length > 0);
+const validateMovie = (title, director, date, cast) => title.length > 0 && director.length > 0 && (date ?? undefined) && cast.some(actor => actor.length > 0);
 
 const moviesJsonString = `
 {
@@ -160,8 +160,8 @@ class Calendar {
 		this.month = month;
 		this.year = year;
 		this.day = day;
-		this.bindControls();
 		this.printCalendar();
+		this.bindControls();
 	}
 
 	increaseYear = () => this.year++;
@@ -268,13 +268,21 @@ class Calendar {
 	}
 
 	bindControls = () => {
-		yesterday.onclick = () => this.reduceDay();
-		tomorrow.onclick = () => this.increaseDay();
+		yesterday.addEventListener("click", this.reduceDay);
+		tomorrow.addEventListener("click", this.increaseDay);
 		calendar.addEventListener("click", (day) => {
 			if (day.target && day.target.tagName == "TIME" && day.target.textContent.length != 0) {
 				this.setDay(parseInt(day.target.textContent));
 			}
-		})
+		});
+
+		[...days].forEach(index => index.addEventListener("mouseover", () => {
+			index.classList.add("hovered");
+		}));
+
+		[...days].forEach(index => index.addEventListener("mouseout", () => {
+			index.classList.remove("hovered");
+		}))
 	}
 }
 
@@ -400,7 +408,7 @@ class MovieList {
 					director: director,
 					cast: cast
 				}
-	
+
 				this.addMovie(movie);
 				this.addMovieListArticle();
 			} else {
@@ -437,6 +445,7 @@ class MovieList {
 
 const actualDate = new Date();
 
+// This doesn't work because of browser defaults 
 // addMoviesFromJSONFile = (movieListObject) => {
 // 	fetch("./movies.json")
 // 		.then(response => response.json())
@@ -449,7 +458,21 @@ const movieList1 = new MovieList(calendar1);
 movieList1.addMovieJSON(moviesJsonString);
 movieList1.addMovieListArticle();
 
-addMovieButton.onclick = () => makeVisible(movieForm);
-addNavPopup.onclick = () => makeVisible(navPopup);
-removeMovieButton.onclick = () => makeVisible(removeMovieForm);
-watchMovieButton.onclick = () => makeVisible(watchMovieForm);
+addMovieButton.onclick = () => makeVisible(movieForm, true);
+addNavPopup.onclick = () => makeVisible(navPopup, true);
+removeMovieButton.onclick = () => makeVisible(removeMovieForm, true);
+watchMovieButton.onclick = () => makeVisible(watchMovieForm, true);
+
+document.body.addEventListener("keydown", (event) => {
+	console.log(event.code);
+	if (event.code === "KeyM") {
+		alert("You pressed the letter 'm'")
+	};
+})
+
+document.body.addEventListener("keydown", (event) => {
+	if (event.code === "Escape") {
+		makeVisible(movieForm, false);
+		makeVisible(navPopup, false)
+	}
+})

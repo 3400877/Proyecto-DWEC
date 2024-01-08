@@ -28,10 +28,95 @@
             "title": "Renaissance: A Film By Beyoncé",
             "year": 2023,
 			"month": 12,
-			"day": 21,
+			"day": 22,
             "director": "Beyoncé and Ed Burke",
             "cast": []
-        }
+        },
+		{
+			"title": "The Marvels",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Nia DaCosta",
+			"cast": [
+				"Brie Larson",
+				"Teyonah Parris",
+				"Iman Vallani"
+			]
+		},
+		{
+			"title": "Napoleon",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Ridley Scott",
+			"cast": [
+				"Joaquin Phoenix"
+			]
+		},
+		{
+			"title": "Wish",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Disney",
+			"cast": []
+		},
+		{
+			"title": "Thanksgiving",
+			"year": 2023,
+			"month": 11,
+			"day": 22,
+			"director": "Eli Roth",
+			"cast": []
+		},
+		{
+			"title": "Spider-Man: Across the Spider-Verse",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "James Gunn",
+			"cast": []
+		},
+		{
+			"title": "Oppenheimer",
+			"year": 2023,
+			"month": 12,
+			"day": 25,
+			"director": "Christopher Nolan",
+			"cast": []
+		},
+		{
+			"title": "Guardians of the Galaxy Vol. 3",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "James Gunn",
+			"cast": []
+		},
+		{
+			"title": "The Color Purple",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Steven Spielberg",
+			"cast": []
+		},
+		{
+			"title": "Leave the World Behind",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Ava DuVernay",
+			"cast": []
+		},
+		{
+			"title": "Ferrari",
+			"year": 2023,
+			"month": 12,
+			"day": 21,
+			"director": "Curtis Hanson",
+			"cast": []
+		}
     ]
 }
-
